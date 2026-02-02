@@ -50,25 +50,6 @@ class GameCell extends StatelessWidget {
                   borderRadius: BorderRadius.circular(_cellRadius),
                 ),
               ),
-              // Inner shadow: x=0, y=-6 (darker at top, soft edge)
-              Positioned.fill(
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(_cellRadius),
-                  child: DecoratedBox(
-                    decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                        begin: const Alignment(0, -1),
-                        end: const Alignment(0, 1),
-                        colors: [
-                          Colors.black.withValues(alpha: 0.4),
-                          Colors.black.withValues(alpha: 0.0),
-                        ],
-                        stops: const [0.0, 0.35],
-                      ),
-                    ),
-                  ),
-                ),
-              ),
               // Content
               Padding(
                 padding: const EdgeInsets.all(AppSpacing.sm),

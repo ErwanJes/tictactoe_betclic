@@ -8,7 +8,7 @@ class AppTheme {
 
   static ThemeData get light {
     return ThemeData(
-      useMaterial3: true,
+      useMaterial3: false,
       brightness: Brightness.dark,
       scaffoldBackgroundColor: AppColors.background,
       colorScheme: const ColorScheme.dark(
