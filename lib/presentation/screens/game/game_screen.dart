@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../core/models/difficulty_option.dart';
 import '../../../core/router/app_router.dart';
 import '../../../core/theme/app_spacing.dart';
 import '../../../domain/entities/entities.dart';
@@ -39,9 +40,7 @@ class GameScreen extends ConsumerWidget {
     final winningLine = gameState.winningLine ?? <int>[];
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Tic Tac Toe'),
-      ),
+      appBar: AppBar(title: const Text('Tic Tac Toe')),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(AppSpacing.md),
@@ -49,12 +48,14 @@ class GameScreen extends ConsumerWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                isOver ? 'Game over' : (isHumanTurn ? "Your turn (X)" : "Bot's turn (O)"),
+                isOver
+                    ? 'Game over'
+                    : (isHumanTurn ? "Your turn (X)" : "Bot's turn (O)"),
                 style: Theme.of(context).textTheme.titleMedium,
               ),
               const SizedBox(height: AppSpacing.sm),
               Text(
-                'Difficulty: ${gameState.difficulty}',
+                'Difficulty: ${DifficultyOption.forLevel(gameState.difficulty).label}',
                 style: Theme.of(context).textTheme.bodySmall,
               ),
               const SizedBox(height: AppSpacing.lg),
@@ -76,10 +77,14 @@ class GameScreen extends ConsumerWidget {
                                       if (col > 0) const SizedBox(width: 4),
                                       Expanded(
                                         child: GameCell(
-                                          player: gameState.board[row * 3 + col],
-                                          onTap: () => notifier.playAt(row * 3 + col),
+                                          player:
+                                              gameState.board[row * 3 + col],
+                                          onTap: () =>
+                                              notifier.playAt(row * 3 + col),
                                           enabled: isHumanTurn,
-                                          highlight: winningLine.contains(row * 3 + col),
+                                          highlight: winningLine.contains(
+                                            row * 3 + col,
+                                          ),
                                         ),
                                       ),
                                     ],
