@@ -16,6 +16,9 @@ abstract final class AppColors {
   /// Darker edge for 3D cell shadow (bottom-right).
   static const Color cellInnerShadow = Color(0xFF3D3877);
 
+  /// Dark band at bottom of cell for depth (design: bottom shadow).
+  static const Color cellBottomShadow = Color(0xFF312864);
+
   /// Primary text (titles).
   static const Color onBackground = Color(0xFFFFFFFF);
 
@@ -31,8 +34,10 @@ abstract final class AppColors {
 
   /// Win (human or positive outcome).
   static const Color semanticWin = Color(0xFF81C784);
+
   /// Lose (negative outcome).
   static const Color semanticLose = Color(0xFFE57373);
+
   /// Draw.
   static const Color semanticDraw = Color(0xFFB0B0B0);
 }

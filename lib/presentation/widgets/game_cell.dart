@@ -6,9 +6,8 @@ import '../../core/theme/app_spacing.dart';
 import '../../domain/entities/player.dart';
 import '../../gen/assets.gen.dart';
 
-/// Neumorphic cell 3D: inner shadow offset (0, -2) and light blur.
+/// Cell: rounded with inner shadow (x=0, y=-6).
 const double _cellRadius = 16;
-const double _innerShadowBlur = 6;
 
 /// A single cell in the 3x3 grid. Shows cross or circle icon and handles tap when empty and enabled.
 class GameCell extends StatelessWidget {
@@ -36,41 +35,55 @@ class GameCell extends StatelessWidget {
           : 'Cell with ${player == Player.x ? 'X' : 'O'}',
       child: GestureDetector(
         onTap: canTap ? onTap : null,
-        child: AnimatedContainer(
-          duration: const Duration(milliseconds: 300),
-          curve: Curves.easeOut,
-          decoration: BoxDecoration(
-            color: highlight
-                ? AppColors.cellInnerHighlight.withValues(alpha: 0.4)
-                : AppColors.boardCell,
-            borderRadius: BorderRadius.circular(_cellRadius),
-            boxShadow: [
-              // Inner shadow effect: top highlight (y = -2), light blur
-              BoxShadow(
-                color: AppColors.cellInnerHighlight.withValues(alpha: 0.4),
-                offset: const Offset(0, -2),
-                blurRadius: _innerShadowBlur,
-                spreadRadius: 0,
+        child: AspectRatio(
+          aspectRatio: 1,
+          child: Stack(
+            children: [
+              // Cell background
+              AnimatedContainer(
+                duration: const Duration(milliseconds: 300),
+                curve: Curves.easeOut,
+                decoration: BoxDecoration(
+                  color: highlight
+                      ? AppColors.cellInnerHighlight.withValues(alpha: 0.4)
+                      : AppColors.boardCell,
+                  borderRadius: BorderRadius.circular(_cellRadius),
+                ),
               ),
-              // Bottom-right shadow for debossed look
-              BoxShadow(
-                color: AppColors.cellInnerShadow.withValues(alpha: 0.8),
-                offset: const Offset(0, 2),
-                blurRadius: _innerShadowBlur,
-                spreadRadius: 0,
+              // Inner shadow: x=0, y=-6 (darker at top, soft edge)
+              Positioned.fill(
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(_cellRadius),
+                  child: DecoratedBox(
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        begin: Alignment(0, -1),
+                        end: Alignment(0, 1),
+                        colors: [
+                          Colors.black.withValues(alpha: 0.4),
+                          Colors.black.withValues(alpha: 0.0),
+                        ],
+                        stops: const [0.0, 0.35],
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              // Content
+              Padding(
+                padding: const EdgeInsets.all(AppSpacing.sm),
+                child: Center(
+                  child: _Symbol(player: player)
+                      .animate()
+                      .fadeIn(duration: 200.ms)
+                      .scale(
+                        begin: const Offset(0.5, 0.5),
+                        end: const Offset(1, 1),
+                        curve: Curves.easeOut,
+                      ),
+                ),
               ),
             ],
-          ),
-          padding: const EdgeInsets.all(AppSpacing.sm),
-          child: Center(
-            child: _Symbol(player: player)
-                .animate()
-                .fadeIn(duration: 200.ms)
-                .scale(
-                  begin: const Offset(0.5, 0.5),
-                  end: const Offset(1, 1),
-                  curve: Curves.easeOut,
-                ),
           ),
         ),
       ),

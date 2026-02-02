@@ -82,13 +82,14 @@ class GameScreen extends ConsumerWidget {
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: AppSpacing.lg),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Text(
                 'TIC TAC TOE',
                 style: Theme.of(context).textTheme.headlineLarge?.copyWith(
                   color: AppColors.onBackground,
-                  letterSpacing: 2,
+                  fontWeight: FontWeight.bold,
+                  letterSpacing: 3,
                 ),
                 textAlign: TextAlign.center,
               ),
@@ -97,62 +98,78 @@ class GameScreen extends ConsumerWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    SizedBox(
+                    const SizedBox(
                       width: 20,
                       height: 20,
                       child: CircularProgressIndicator(
                         strokeWidth: 2,
-                        color: AppColors.onBackgroundSecondary,
+                        color: AppColors.onBackground,
                       ),
                     ),
                     const SizedBox(width: AppSpacing.sm),
                     Text(
                       turnLabel,
-                      style: Theme.of(context).textTheme.titleMedium,
+                      style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                        color: AppColors.onBackground,
+                      ),
                     ),
                   ],
                 )
               else
-                Text(turnLabel, style: Theme.of(context).textTheme.titleMedium),
+                Text(
+                  turnLabel,
+                  style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                    color: AppColors.onBackground,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
               const SizedBox(height: AppSpacing.sm),
               Text(
                 'Difficulty: ${DifficultyOption.forLevel(gameState.difficulty).label}',
-                style: Theme.of(context).textTheme.bodySmall,
+                style: Theme.of(
+                  context,
+                ).textTheme.bodySmall?.copyWith(color: AppColors.onBackground),
+                textAlign: TextAlign.center,
               ),
               const SizedBox(height: AppSpacing.xl),
               Expanded(
-                child: AspectRatio(
-                  aspectRatio: 1,
+                child: Align(
+                  alignment: Alignment.topCenter,
                   child: LayoutBuilder(
                     builder: (context, constraints) {
-                      const gap = 12.0;
+                      const gap = 10.0;
+                      final side = constraints.maxWidth < constraints.maxHeight
+                          ? constraints.maxWidth
+                          : constraints.maxHeight;
+                      final cellSize = (side - 2 * gap) / 3;
                       return SizedBox(
-                        width: constraints.maxWidth,
-                        height: constraints.maxWidth,
+                        width: side,
+                        height: side,
                         child: Column(
+                          mainAxisSize: MainAxisSize.min,
                           children: [
                             for (var row = 0; row < 3; row++) ...[
                               if (row > 0) const SizedBox(height: gap),
-                              Expanded(
-                                child: Row(
-                                  children: [
-                                    for (var col = 0; col < 3; col++) ...[
-                                      if (col > 0) const SizedBox(width: gap),
-                                      Expanded(
-                                        child: GameCell(
-                                          player:
-                                              gameState.board[row * 3 + col],
-                                          onTap: () =>
-                                              notifier.playAt(row * 3 + col),
-                                          enabled: isHumanTurn,
-                                          highlight: winningLine.contains(
-                                            row * 3 + col,
-                                          ),
+                              Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  for (var col = 0; col < 3; col++) ...[
+                                    if (col > 0) const SizedBox(width: gap),
+                                    SizedBox(
+                                      width: cellSize,
+                                      height: cellSize,
+                                      child: GameCell(
+                                        player: gameState.board[row * 3 + col],
+                                        onTap: () =>
+                                            notifier.playAt(row * 3 + col),
+                                        enabled: isHumanTurn,
+                                        highlight: winningLine.contains(
+                                          row * 3 + col,
                                         ),
                                       ),
-                                    ],
+                                    ),
                                   ],
-                                ),
+                                ],
                               ),
                             ],
                           ],
