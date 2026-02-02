@@ -6,6 +6,6 @@ void main() {
   testWidgets('App loads with ProviderScope', (WidgetTester tester) async {
     await tester.pumpWidget(const ProviderScope(child: App()));
     await tester.pumpAndSettle();
-    expect(find.text('Tic Tac Toe'), findsOneWidget);
+    expect(find.text('TIC TAC TOE'), findsOneWidget);
   });
 }
