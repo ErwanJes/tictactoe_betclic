@@ -1,0 +1,47 @@
+# Flutter / Dart
+.dart_tool/
+.pub-cache/
+.pub/
+.packages
+build/
+coverage/
+*.g.dart
+*.freezed.dart
+
+# IDE
+.idea/
+*.iml
+.vscode/
+
+# OS
+.DS_Store
+Thumbs.db
+*~
+
+# Misc
+*.class
+*.log
+*.pyc
+*.swp
+.atom/
+.build/
+.buildlog/
+.history
+.svn/
+.swiftpm/
+migrate_working_dir/
+
+# Flutter / iOS
+**/doc/api/
+**/ios/Flutter/.last_build_id
+.flutter-plugins
+.flutter-plugins-dependencies
+
+# Android
+/android/app/debug
+/android/app/profile
+/android/app/release
+
+# Build / symbols
+app.*.symbols
+app.*.map.json
