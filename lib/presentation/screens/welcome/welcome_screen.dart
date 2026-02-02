@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../../core/models/difficulty_option.dart';
 import '../../../core/router/app_router.dart';
+import '../../../core/theme/app_colors.dart';
 import '../../../core/theme/app_spacing.dart';
 import '../../providers/game_notifier.dart';
 import '../../widgets/app_primary_button.dart';
@@ -29,6 +30,7 @@ class _WelcomeScreenState extends ConsumerState<WelcomeScreen> {
     final selectedOption = DifficultyOption.forLevel(_difficulty);
 
     return Scaffold(
+      backgroundColor: AppColors.background,
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(AppSpacing.lg),
@@ -36,8 +38,11 @@ class _WelcomeScreenState extends ConsumerState<WelcomeScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                'Tic Tac Toe',
-                style: Theme.of(context).textTheme.headlineLarge,
+                'TIC TAC TOE',
+                style: Theme.of(context).textTheme.headlineLarge?.copyWith(
+                      color: AppColors.onBackground,
+                      letterSpacing: 2,
+                    ),
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: AppSpacing.sm),
@@ -47,7 +52,12 @@ class _WelcomeScreenState extends ConsumerState<WelcomeScreen> {
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: AppSpacing.xl),
-              Text('Difficulty', style: Theme.of(context).textTheme.labelLarge),
+              Text(
+                'Difficulty',
+                style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                      color: AppColors.onBackgroundSecondary,
+                    ),
+              ),
               const SizedBox(height: AppSpacing.sm),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -62,6 +72,17 @@ class _WelcomeScreenState extends ConsumerState<WelcomeScreen> {
                       selected: selected,
                       onSelected: (_) =>
                           setState(() => _difficulty = option.level),
+                      backgroundColor: AppColors.boardCell,
+                      selectedColor: AppColors.cellInnerHighlight,
+                      labelStyle: TextStyle(
+                        color: selected
+                            ? AppColors.onBackground
+                            : AppColors.onBackgroundSecondary,
+                      ),
+                      side: BorderSide.none,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
                     ),
                   );
                 }).toList(),

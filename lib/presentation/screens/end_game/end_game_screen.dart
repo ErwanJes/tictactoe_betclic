@@ -21,6 +21,7 @@ class EndGameScreen extends ConsumerWidget {
     final (message, color) = _messageAndColor(result);
 
     return Scaffold(
+      backgroundColor: AppColors.background,
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(AppSpacing.lg),
@@ -55,7 +56,7 @@ class EndGameScreen extends ConsumerWidget {
   }
 
   (String, Color) _messageAndColor(GameResult? r) {
-    if (r == null) return ('Game over', AppColors.onSurface);
+    if (r == null) return ('Game over', AppColors.onBackground);
     return switch (r) {
       GameResult.humanWin => ('You win!', AppColors.semanticWin),
       GameResult.botWin => ('You lose', AppColors.semanticLose),

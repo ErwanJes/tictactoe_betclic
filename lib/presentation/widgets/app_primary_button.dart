@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import '../../core/theme/app_colors.dart';
 import '../../core/theme/app_spacing.dart';
 
+const double _buttonRadius = 16;
+
 /// Primary action button using design system colors and typography.
 class AppPrimaryButton extends StatelessWidget {
   const AppPrimaryButton({
@@ -21,17 +23,21 @@ class AppPrimaryButton extends StatelessWidget {
     return Semantics(
       label: semanticsLabel ?? label,
       button: true,
-      enabled: onPressed != null,
       child: FilledButton(
         onPressed: onPressed,
         style: FilledButton.styleFrom(
-          backgroundColor: AppColors.primary,
+          backgroundColor: AppColors.boardCell,
           foregroundColor: AppColors.onPrimary,
+          disabledBackgroundColor: AppColors.boardCell.withValues(alpha: 0.6),
+          disabledForegroundColor: AppColors.onPrimary.withValues(alpha: 0.6),
           padding: const EdgeInsets.symmetric(
             horizontal: AppSpacing.lg,
             vertical: AppSpacing.md,
           ),
-          textStyle: Theme.of(context).textTheme.labelLarge,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(_buttonRadius),
+          ),
+          elevation: 0,
         ),
         child: Text(label),
       ),

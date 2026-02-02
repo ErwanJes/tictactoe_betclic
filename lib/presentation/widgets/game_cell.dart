@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 
+import '../../core/theme/app_colors.dart';
 import '../../core/theme/app_spacing.dart';
 import '../../domain/entities/player.dart';
 import '../../gen/assets.gen.dart';
+
+/// Neumorphic cell 3D: inner shadow offset (0, -2) and light blur.
+const double _cellRadius = 16;
+const double _innerShadowBlur = 6;
 
 /// A single cell in the 3x3 grid. Shows cross or circle icon and handles tap when empty and enabled.
 class GameCell extends StatelessWidget {
@@ -36,12 +41,25 @@ class GameCell extends StatelessWidget {
           curve: Curves.easeOut,
           decoration: BoxDecoration(
             color: highlight
-                ? Theme.of(context).colorScheme.primaryContainer
-                : null,
-            border: Border.all(
-              color: Theme.of(context).colorScheme.outline,
-              width: 1,
-            ),
+                ? AppColors.cellInnerHighlight.withValues(alpha: 0.4)
+                : AppColors.boardCell,
+            borderRadius: BorderRadius.circular(_cellRadius),
+            boxShadow: [
+              // Inner shadow effect: top highlight (y = -2), light blur
+              BoxShadow(
+                color: AppColors.cellInnerHighlight.withValues(alpha: 0.4),
+                offset: const Offset(0, -2),
+                blurRadius: _innerShadowBlur,
+                spreadRadius: 0,
+              ),
+              // Bottom-right shadow for debossed look
+              BoxShadow(
+                color: AppColors.cellInnerShadow.withValues(alpha: 0.8),
+                offset: const Offset(0, 2),
+                blurRadius: _innerShadowBlur,
+                spreadRadius: 0,
+              ),
+            ],
           ),
           padding: const EdgeInsets.all(AppSpacing.sm),
           child: Center(
