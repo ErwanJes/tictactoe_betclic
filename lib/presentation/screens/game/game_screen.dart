@@ -25,7 +25,17 @@ class GameScreen extends ConsumerWidget {
       final status = next.gameState?.status;
       if (status is GameStatusOver) {
         HapticFeedback.lightImpact();
-        context.pushNamed(AppRoutes.endGame, extra: status.result);
+        final gameState = next.gameState!;
+        if (!context.mounted) {
+          return;
+        }
+        context.pushNamed(
+          AppRoutes.endGame,
+          extra: EndGamePayload(
+            result: status.result,
+            difficulty: DifficultyOption.forLevel(gameState.difficulty),
+          ),
+        );
       }
     });
 
@@ -33,7 +43,18 @@ class GameScreen extends ConsumerWidget {
     final gameState = notifierState.gameState;
     final isBotThinking = notifierState.isBotThinking;
 
-    if (gameState == null) {
+    // Start or restart game when difficulty is provided and there's no active game.
+    final shouldStart =
+        difficulty != null &&
+        (gameState == null || gameState.status is GameStatusOver);
+    if (shouldStart) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        ref.read(gameNotifierProvider.notifier).startGame(difficulty!.level);
+      });
+    }
+
+    // No game yet, or we're about to start/restart: show loading or "No game started".
+    if (gameState == null || shouldStart) {
       return Scaffold(
         backgroundColor: AppColors.background,
         appBar: AppBar(
@@ -47,10 +68,12 @@ class GameScreen extends ConsumerWidget {
           ),
         ),
         body: Center(
-          child: Text(
-            'No game started',
-            style: Theme.of(context).textTheme.bodyLarge,
-          ),
+          child: shouldStart
+              ? const CircularProgressIndicator(color: AppColors.onBackground)
+              : Text(
+                  'No game started',
+                  style: Theme.of(context).textTheme.bodyLarge,
+                ),
         ),
       );
     }

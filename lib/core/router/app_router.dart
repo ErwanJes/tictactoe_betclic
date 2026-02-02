@@ -29,14 +29,17 @@ class AppRouter {
         GoRoute(
           path: '/game',
           name: AppRoutes.game,
-          builder: (context, state) => const GameScreen(),
+          builder: (context, state) {
+            final difficulty = state.extra as DifficultyOption?;
+            return GameScreen(difficulty: difficulty);
+          },
         ),
         GoRoute(
           path: '/end',
           name: AppRoutes.endGame,
           builder: (context, state) {
-            final result = state.extra as GameResult?;
-            return EndGameScreen(result: result);
+            final payload = state.extra as EndGamePayload?;
+            return EndGameScreen(payload: payload);
           },
         ),
       ],

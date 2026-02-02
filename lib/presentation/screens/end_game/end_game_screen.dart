@@ -26,6 +26,7 @@ class EndGameScreen extends ConsumerWidget {
           padding: const EdgeInsets.all(AppSpacing.lg),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               Text(
                     message,
@@ -45,7 +46,6 @@ class EndGameScreen extends ConsumerWidget {
               AppPrimaryButton(
                     label: 'Play again',
                     onPressed: () {
-                      ref.read(gameNotifierProvider.notifier).playAgain();
                       context.goNamed(AppRoutes.welcome);
                     },
                     semanticsLabel: 'Play again',
@@ -64,11 +64,11 @@ class EndGameScreen extends ConsumerWidget {
     );
   }
 
-  (String, Color) _messageAndColor(GameResult? r) {
-    if (r == null) {
+  (String, Color) _messageAndColor(GameResult? gameResult) {
+    if (gameResult == null) {
       return ('Game over', AppColors.onBackground);
     }
-    return switch (r) {
+    return switch (gameResult) {
       GameResult.humanWin => ('You win!', AppColors.semanticWin),
       GameResult.botWin => ('You lose', AppColors.semanticLose),
       GameResult.draw => ("It's a draw", AppColors.semanticDraw),

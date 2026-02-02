@@ -16,17 +16,14 @@ class WelcomeScreen extends ConsumerStatefulWidget {
 }
 
 class _WelcomeScreenState extends ConsumerState<WelcomeScreen> {
-  int _difficulty = 1;
+  DifficultyOption _selectedOption = DifficultyOption.all.first;
 
   void _onPlay() {
-    ref.read(gameNotifierProvider.notifier).startGame(_difficulty);
-    context.pushNamed(AppRoutes.game);
+    context.pushNamed(AppRoutes.game, extra: _selectedOption);
   }
 
   @override
   Widget build(BuildContext context) {
-    final selectedOption = DifficultyOption.forLevel(_difficulty);
-
     return Scaffold(
       backgroundColor: AppColors.background,
       body: SafeArea(
@@ -46,7 +43,9 @@ class _WelcomeScreenState extends ConsumerState<WelcomeScreen> {
               const SizedBox(height: AppSpacing.sm),
               Text(
                 'Play against the bot. Choose difficulty and tap Play.',
-                style: Theme.of(context).textTheme.bodyLarge,
+                style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                  color: AppColors.onBackgroundSecondary,
+                ),
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: AppSpacing.xl),
@@ -60,7 +59,7 @@ class _WelcomeScreenState extends ConsumerState<WelcomeScreen> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: DifficultyOption.all.map((option) {
-                  final selected = _difficulty == option.level;
+                  final selected = _selectedOption == option;
                   return Padding(
                     padding: const EdgeInsets.symmetric(
                       horizontal: AppSpacing.sm,
@@ -69,7 +68,11 @@ class _WelcomeScreenState extends ConsumerState<WelcomeScreen> {
                       label: Text(option.label),
                       selected: selected,
                       onSelected: (_) =>
-                          setState(() => _difficulty = option.level),
+                          setState(() => _selectedOption = option),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: AppSpacing.sm,
+                        vertical: AppSpacing.sm,
+                      ),
                       backgroundColor: AppColors.boardCell,
                       selectedColor: AppColors.cellInnerHighlight,
                       labelStyle: TextStyle(
@@ -87,7 +90,7 @@ class _WelcomeScreenState extends ConsumerState<WelcomeScreen> {
               ),
               const SizedBox(height: AppSpacing.sm),
               Text(
-                selectedOption.description,
+                _selectedOption.description,
                 style: Theme.of(context).textTheme.bodySmall,
                 textAlign: TextAlign.center,
               ),
@@ -96,7 +99,7 @@ class _WelcomeScreenState extends ConsumerState<WelcomeScreen> {
                 label: 'Play',
                 onPressed: _onPlay,
                 semanticsLabel:
-                    'Start game with difficulty ${selectedOption.label}',
+                    'Start game with difficulty ${_selectedOption.label}',
               ),
             ],
           ),
