@@ -1,5 +1,5 @@
-import '../entities/game_state.dart';
-import '../repositories/game_repository.dart';
+import 'package:tictactoe_betclic/domain/entities/game_state.dart';
+import 'package:tictactoe_betclic/domain/repositories/game_repository.dart';
 
 /// Starts a new game with the given difficulty and returns initial state.
 class StartGameUseCase {

@@ -1,5 +1,5 @@
-import '../entities/player.dart';
-import '../repositories/ai_strategy.dart';
+import 'package:tictactoe_betclic/domain/entities/player.dart';
+import 'package:tictactoe_betclic/domain/repositories/ai_strategy.dart';
 
 /// Returns the cell index (0-8) for the bot's next move using the injected strategy.
 class GetBotMoveUseCase {

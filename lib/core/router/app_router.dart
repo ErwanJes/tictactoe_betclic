@@ -1,9 +1,10 @@
 import 'package:go_router/go_router.dart';
 
-import '../../domain/entities/game_result.dart';
-import '../../presentation/screens/end_game/end_game_screen.dart';
-import '../../presentation/screens/game/game_screen.dart';
-import '../../presentation/screens/welcome/welcome_screen.dart';
+import 'package:tictactoe_betclic/core/models/difficulty_option.dart';
+import 'package:tictactoe_betclic/core/models/end_game_payload.dart';
+import 'package:tictactoe_betclic/presentation/screens/end_game/end_game_screen.dart';
+import 'package:tictactoe_betclic/presentation/screens/game/game_screen.dart';
+import 'package:tictactoe_betclic/presentation/screens/welcome/welcome_screen.dart';
 
 /// Route names.
 abstract final class AppRoutes {

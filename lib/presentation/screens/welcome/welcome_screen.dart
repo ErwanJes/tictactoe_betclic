@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-
-import '../../../core/models/difficulty_option.dart';
-import '../../../core/router/app_router.dart';
-import '../../../core/theme/app_colors.dart';
-import '../../../core/theme/app_spacing.dart';
-import '../../providers/game_notifier.dart';
-import '../../widgets/app_primary_button.dart';
+import 'package:tictactoe_betclic/core/models/difficulty_option.dart';
+import 'package:tictactoe_betclic/core/router/app_router.dart';
+import 'package:tictactoe_betclic/core/theme/app_colors.dart';
+import 'package:tictactoe_betclic/core/theme/app_spacing.dart';
+import 'package:tictactoe_betclic/presentation/widgets/app_primary_button.dart';
 
 /// Welcome screen: title, difficulty selection, Play button.
 class WelcomeScreen extends ConsumerStatefulWidget {

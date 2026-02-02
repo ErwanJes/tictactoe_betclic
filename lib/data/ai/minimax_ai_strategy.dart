@@ -1,5 +1,5 @@
-import '../../domain/entities/player.dart';
-import '../../domain/repositories/ai_strategy.dart';
+import 'package:tictactoe_betclic/domain/entities/player.dart';
+import 'package:tictactoe_betclic/domain/repositories/ai_strategy.dart';
 
 /// Difficulty 3: optimal play using minimax.
 class MinimaxAiStrategy implements AiStrategy {

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-
-import '../../core/theme/app_colors.dart';
-import '../../core/theme/app_spacing.dart';
+import 'package:tictactoe_betclic/core/theme/app_colors.dart';
+import 'package:tictactoe_betclic/core/theme/app_spacing.dart';
 
 const double _buttonRadius = 16;
 

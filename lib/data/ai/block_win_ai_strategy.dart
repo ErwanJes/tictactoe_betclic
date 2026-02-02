@@ -1,7 +1,7 @@
 import 'dart:math';
 
-import '../../domain/entities/player.dart';
-import '../../domain/repositories/ai_strategy.dart';
+import 'package:tictactoe_betclic/domain/entities/player.dart';
+import 'package:tictactoe_betclic/domain/repositories/ai_strategy.dart';
 
 /// Difficulty 2: blocks opponent win if one move away, otherwise random.
 class BlockWinAiStrategy implements AiStrategy {

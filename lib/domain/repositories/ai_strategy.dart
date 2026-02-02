@@ -1,4 +1,4 @@
-import '../entities/player.dart';
+import 'package:tictactoe_betclic/domain/entities/player.dart';
 
 /// Abstraction for AI move selection. Implementations per difficulty live in data layer.
 abstract interface class AiStrategy {

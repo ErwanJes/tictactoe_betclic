@@ -2,23 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-
-import '../../../core/router/app_router.dart';
-import '../../../core/theme/app_colors.dart';
-import '../../../core/theme/app_spacing.dart';
-import '../../../domain/entities/game_result.dart';
-import '../../providers/game_notifier.dart';
-import '../../widgets/app_primary_button.dart';
+import 'package:tictactoe_betclic/core/models/end_game_payload.dart';
+import 'package:tictactoe_betclic/core/router/app_router.dart';
+import 'package:tictactoe_betclic/core/theme/app_colors.dart';
+import 'package:tictactoe_betclic/core/theme/app_spacing.dart';
+import 'package:tictactoe_betclic/domain/entities/game_result.dart';
+import 'package:tictactoe_betclic/presentation/widgets/app_primary_button.dart';
 
 /// End game screen: result message (win/lose/draw), Play again button.
 class EndGameScreen extends ConsumerWidget {
-  const EndGameScreen({super.key, this.result});
+  const EndGameScreen({super.key, this.payload});
 
-  final GameResult? result;
+  final EndGamePayload? payload;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final (message, color) = _messageAndColor(result);
+    final (message, color) = _messageAndColor(payload?.result);
 
     return Scaffold(
       backgroundColor: AppColors.background,

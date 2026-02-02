@@ -1,5 +1,5 @@
-import '../entities/game_result.dart';
-import '../entities/player.dart';
+import 'package:tictactoe_betclic/domain/entities/game_result.dart';
+import 'package:tictactoe_betclic/domain/entities/player.dart';
 
 /// Pure logic: given a board, returns the game result and winning line if any.
 class CheckGameOverUseCase {

@@ -1,10 +1,11 @@
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
-import '../../domain/entities/entities.dart';
-import '../../domain/use_cases/play_turn_use_case.dart';
-import '../../domain/use_cases/start_game_use_case.dart';
-import '../../injection.dart';
+import 'package:tictactoe_betclic/domain/entities/game_state.dart';
+import 'package:tictactoe_betclic/domain/entities/game_status.dart';
+import 'package:tictactoe_betclic/domain/entities/player.dart';
+import 'package:tictactoe_betclic/domain/use_cases/play_turn_use_case.dart';
+import 'package:tictactoe_betclic/domain/use_cases/start_game_use_case.dart';
+import 'package:tictactoe_betclic/injection.dart';
 
 /// State exposed to the UI: current game or null (before starting or after reset).
 class GameNotifierState {

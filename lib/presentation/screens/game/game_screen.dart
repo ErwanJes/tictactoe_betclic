@@ -2,18 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:tictactoe_betclic/core/models/difficulty_option.dart';
+import 'package:tictactoe_betclic/core/models/end_game_payload.dart';
+import 'package:tictactoe_betclic/core/router/app_router.dart';
+import 'package:tictactoe_betclic/core/theme/app_colors.dart';
+import 'package:tictactoe_betclic/core/theme/app_spacing.dart';
+import 'package:tictactoe_betclic/domain/entities/game_status.dart';
+import 'package:tictactoe_betclic/domain/entities/player.dart';
+import 'package:tictactoe_betclic/presentation/providers/game_notifier.dart';
+import 'package:tictactoe_betclic/presentation/widgets/game_cell.dart';
 
-import '../../../core/models/difficulty_option.dart';
-import '../../../core/router/app_router.dart';
-import '../../../core/theme/app_colors.dart';
-import '../../../core/theme/app_spacing.dart';
-import '../../../domain/entities/entities.dart';
-import '../../providers/game_notifier.dart';
-import '../../widgets/game_cell.dart';
-
-/// Game screen: 3x3 grid, turn indicator, difficulty. Navigates to end when game over.
+/// Game screen: 3x3 grid, turn indicator, difficulty. Starts game when [difficulty] is passed via route.
 class GameScreen extends ConsumerWidget {
-  const GameScreen({super.key});
+  const GameScreen({super.key, this.difficulty});
+
+  /// Difficulty passed from welcome or end screen. When set, the screen starts the game.
+  final DifficultyOption? difficulty;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

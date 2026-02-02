@@ -1,6 +1,8 @@
-import '../../domain/entities/entities.dart';
-import '../../domain/repositories/game_repository.dart';
-import '../../domain/use_cases/check_game_over_use_case.dart';
+import 'package:tictactoe_betclic/domain/entities/game_state.dart';
+import 'package:tictactoe_betclic/domain/entities/game_status.dart';
+import 'package:tictactoe_betclic/domain/entities/player.dart';
+import 'package:tictactoe_betclic/domain/repositories/game_repository.dart';
+import 'package:tictactoe_betclic/domain/use_cases/check_game_over_use_case.dart';
 
 /// In-memory implementation of [GameRepository].
 class GameRepositoryImpl implements GameRepository {

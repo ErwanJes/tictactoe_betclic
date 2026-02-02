@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 
-import '../../core/theme/app_colors.dart';
-import '../../core/theme/app_spacing.dart';
-import '../../domain/entities/player.dart';
-import '../../gen/assets.gen.dart';
+import 'package:tictactoe_betclic/core/theme/app_colors.dart';
+import 'package:tictactoe_betclic/core/theme/app_spacing.dart';
+import 'package:tictactoe_betclic/domain/entities/player.dart';
+import 'package:tictactoe_betclic/gen/assets.gen.dart';
 
 /// Cell: rounded with inner shadow (x=0, y=-6).
 const double _cellRadius = 16;

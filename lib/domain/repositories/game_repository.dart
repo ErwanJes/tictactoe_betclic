@@ -1,4 +1,4 @@
-import '../entities/game_state.dart';
+import 'package:tictactoe_betclic/domain/entities/game_state.dart';
 
 /// Abstraction for game persistence and transitions.
 /// Implementations hold current board state and apply moves.
