@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
@@ -18,6 +19,7 @@ class GameScreen extends ConsumerWidget {
     ref.listen<GameNotifierState>(gameNotifierProvider, (prev, next) {
       final status = next.gameState?.status;
       if (status is GameStatusOver) {
+        HapticFeedback.lightImpact();
         context.pushNamed(AppRoutes.endGame, extra: status.result);
       }
     });

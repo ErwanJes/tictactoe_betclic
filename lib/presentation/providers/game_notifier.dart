@@ -1,3 +1,4 @@
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../domain/entities/entities.dart';
@@ -38,6 +39,7 @@ class GameNotifier extends Notifier<GameNotifierState> {
     try {
       final newGameState = _playTurn(index);
       state = GameNotifierState(gameState: newGameState);
+      HapticFeedback.lightImpact();
 
       // If game not over and it's O's turn, bot plays.
       if (newGameState.status is GameStatusPlaying &&
