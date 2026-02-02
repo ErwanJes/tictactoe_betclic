@@ -3,8 +3,9 @@ import 'package:flutter_animate/flutter_animate.dart';
 
 import '../../core/theme/app_spacing.dart';
 import '../../domain/entities/player.dart';
+import '../../gen/assets.gen.dart';
 
-/// A single cell in the 3x3 grid. Shows X or O and handles tap when empty and enabled.
+/// A single cell in the 3x3 grid. Shows cross or circle icon and handles tap when empty and enabled.
 class GameCell extends StatelessWidget {
   const GameCell({
     super.key,
@@ -25,14 +26,18 @@ class GameCell extends StatelessWidget {
     return Semantics(
       button: true,
       enabled: canTap,
-      label: player == null ? 'Empty cell' : 'Cell with ${player == Player.x ? 'X' : 'O'}',
+      label: player == null
+          ? 'Empty cell'
+          : 'Cell with ${player == Player.x ? 'X' : 'O'}',
       child: GestureDetector(
         onTap: canTap ? onTap : null,
         child: AnimatedContainer(
           duration: const Duration(milliseconds: 300),
           curve: Curves.easeOut,
           decoration: BoxDecoration(
-            color: highlight ? Theme.of(context).colorScheme.primaryContainer : null,
+            color: highlight
+                ? Theme.of(context).colorScheme.primaryContainer
+                : null,
             border: Border.all(
               color: Theme.of(context).colorScheme.outline,
               width: 1,
@@ -43,7 +48,11 @@ class GameCell extends StatelessWidget {
             child: _Symbol(player: player)
                 .animate()
                 .fadeIn(duration: 200.ms)
-                .scale(begin: const Offset(0.5, 0.5), end: const Offset(1, 1), curve: Curves.easeOut),
+                .scale(
+                  begin: const Offset(0.5, 0.5),
+                  end: const Offset(1, 1),
+                  curve: Curves.easeOut,
+                ),
           ),
         ),
       ),
@@ -59,13 +68,9 @@ class _Symbol extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (player == null) return const SizedBox.shrink();
-    final isX = player == Player.x;
-    return Text(
-      isX ? 'X' : 'O',
-      style: Theme.of(context).textTheme.headlineLarge?.copyWith(
-            fontWeight: FontWeight.bold,
-            color: isX ? Colors.blue : Colors.red,
-          ),
-    );
+    final icon = player == Player.x
+        ? Assets.images.icons.cross
+        : Assets.images.icons.circle;
+    return icon.svg(width: 48, height: 48);
   }
 }
