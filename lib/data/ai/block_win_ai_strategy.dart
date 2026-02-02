@@ -6,9 +6,14 @@ import '../../domain/repositories/ai_strategy.dart';
 /// Difficulty 2: blocks opponent win if one move away, otherwise random.
 class BlockWinAiStrategy implements AiStrategy {
   static const List<List<int>> _lines = [
-    [0, 1, 2], [3, 4, 5], [6, 7, 8],
-    [0, 3, 6], [1, 4, 7], [2, 5, 8],
-    [0, 4, 8], [2, 4, 6],
+    [0, 1, 2],
+    [3, 4, 5],
+    [6, 7, 8],
+    [0, 3, 6],
+    [1, 4, 7],
+    [2, 5, 8],
+    [0, 4, 8],
+    [2, 4, 6],
   ];
 
   final Random _random = Random();
@@ -42,7 +47,9 @@ class BlockWinAiStrategy implements AiStrategy {
     // Otherwise random.
     final empty = <int>[];
     for (var i = 0; i < 9; i++) {
-      if (board[i] == null) empty.add(i);
+      if (board[i] == null) {
+        empty.add(i);
+      }
     }
     return empty[_random.nextInt(empty.length)];
   }

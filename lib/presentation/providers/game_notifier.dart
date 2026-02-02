@@ -31,10 +31,12 @@ class GameNotifier extends Notifier<GameNotifierState> {
 
   void playAt(int index) {
     final current = state.gameState;
-    if (current == null) return;
-    if (current.status is GameStatusOver) return;
     // Human is X. Only accept human move when it's X's turn.
-    if (current.currentPlayer != Player.x) return;
+    if (current == null ||
+        current.status is GameStatusOver ||
+        current.currentPlayer != Player.x) {
+      return;
+    }
 
     try {
       final newGameState = _playTurn(index);

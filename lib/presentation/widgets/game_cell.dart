@@ -57,8 +57,8 @@ class GameCell extends StatelessWidget {
                   child: DecoratedBox(
                     decoration: BoxDecoration(
                       gradient: LinearGradient(
-                        begin: Alignment(0, -1),
-                        end: Alignment(0, 1),
+                        begin: const Alignment(0, -1),
+                        end: const Alignment(0, 1),
                         colors: [
                           Colors.black.withValues(alpha: 0.4),
                           Colors.black.withValues(alpha: 0.0),
@@ -98,7 +98,9 @@ class _Symbol extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (player == null) return const SizedBox.shrink();
+    if (player == null) {
+      return const SizedBox.shrink();
+    }
     final icon = player == Player.x
         ? Assets.images.icons.cross
         : Assets.images.icons.circle;

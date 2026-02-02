@@ -29,25 +29,35 @@ class EndGameScreen extends ConsumerWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                message,
-                style: Theme.of(context).textTheme.headlineMedium?.copyWith(color: color),
-                textAlign: TextAlign.center,
-              )
+                    message,
+                    style: Theme.of(
+                      context,
+                    ).textTheme.headlineMedium?.copyWith(color: color),
+                    textAlign: TextAlign.center,
+                  )
                   .animate()
                   .fadeIn(duration: 300.ms)
-                  .scale(begin: const Offset(0.9, 0.9), end: const Offset(1, 1), curve: Curves.easeOut),
+                  .scale(
+                    begin: const Offset(0.9, 0.9),
+                    end: const Offset(1, 1),
+                    curve: Curves.easeOut,
+                  ),
               const SizedBox(height: AppSpacing.lg),
               AppPrimaryButton(
-                label: 'Play again',
-                onPressed: () {
-                  ref.read(gameNotifierProvider.notifier).playAgain();
-                  context.goNamed(AppRoutes.welcome);
-                },
-                semanticsLabel: 'Play again',
-              )
+                    label: 'Play again',
+                    onPressed: () {
+                      ref.read(gameNotifierProvider.notifier).playAgain();
+                      context.goNamed(AppRoutes.welcome);
+                    },
+                    semanticsLabel: 'Play again',
+                  )
                   .animate()
                   .fadeIn(duration: 300.ms, delay: 150.ms)
-                  .scale(begin: const Offset(0.95, 0.95), end: const Offset(1, 1), curve: Curves.easeOut),
+                  .scale(
+                    begin: const Offset(0.95, 0.95),
+                    end: const Offset(1, 1),
+                    curve: Curves.easeOut,
+                  ),
             ],
           ),
         ),
@@ -56,7 +66,9 @@ class EndGameScreen extends ConsumerWidget {
   }
 
   (String, Color) _messageAndColor(GameResult? r) {
-    if (r == null) return ('Game over', AppColors.onBackground);
+    if (r == null) {
+      return ('Game over', AppColors.onBackground);
+    }
     return switch (r) {
       GameResult.humanWin => ('You win!', AppColors.semanticWin),
       GameResult.botWin => ('You lose', AppColors.semanticLose),

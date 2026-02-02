@@ -11,9 +11,13 @@ class RandomAiStrategy implements AiStrategy {
   int getMove(List<Player?> board, Player botPlayer) {
     final empty = <int>[];
     for (var i = 0; i < 9; i++) {
-      if (board[i] == null) empty.add(i);
+      if (board[i] == null) {
+        empty.add(i);
+      }
     }
-    if (empty.isEmpty) throw StateError('No empty cell');
+    if (empty.isEmpty) {
+      throw StateError('No empty cell');
+    }
     return empty[_random.nextInt(empty.length)];
   }
 }

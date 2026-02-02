@@ -11,7 +11,7 @@ class AppTheme {
       useMaterial3: true,
       brightness: Brightness.dark,
       scaffoldBackgroundColor: AppColors.background,
-      colorScheme: ColorScheme.dark(
+      colorScheme: const ColorScheme.dark(
         primary: AppColors.primary,
         onPrimary: AppColors.onPrimary,
         surface: AppColors.surface,
@@ -47,9 +47,18 @@ class AppTheme {
         color: AppColors.onBackgroundSecondary,
         letterSpacing: 0.5,
       ),
-      bodyLarge: TextStyle(fontSize: 16, color: AppColors.onBackgroundSecondary),
-      bodyMedium: TextStyle(fontSize: 14, color: AppColors.onBackgroundSecondary),
-      bodySmall: TextStyle(fontSize: 12, color: AppColors.onBackgroundSecondary),
+      bodyLarge: TextStyle(
+        fontSize: 16,
+        color: AppColors.onBackgroundSecondary,
+      ),
+      bodyMedium: TextStyle(
+        fontSize: 14,
+        color: AppColors.onBackgroundSecondary,
+      ),
+      bodySmall: TextStyle(
+        fontSize: 12,
+        color: AppColors.onBackgroundSecondary,
+      ),
       labelLarge: TextStyle(
         fontSize: 16,
         fontWeight: FontWeight.w600,

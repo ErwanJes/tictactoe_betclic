@@ -10,11 +10,15 @@ class CheckGameOverUseCase {
     if (win != null) {
       final winner = board[win[0]]!;
       // Human is X, bot is O. So X win = human, O win = bot.
-      final result = winner == Player.x ? GameResult.humanWin : GameResult.botWin;
+      final result = winner == Player.x
+          ? GameResult.humanWin
+          : GameResult.botWin;
       return (result, win);
     }
     final isFull = board.every((c) => c != null);
-    if (isFull) return (GameResult.draw, null);
+    if (isFull) {
+      return (GameResult.draw, null);
+    }
     return (null, null);
   }
 
@@ -34,7 +38,9 @@ class CheckGameOverUseCase {
       final a = board[line[0]];
       final b = board[line[1]];
       final c = board[line[2]];
-      if (a != null && a == b && b == c) return line;
+      if (a != null && a == b && b == c) {
+        return line;
+      }
     }
     return null;
   }

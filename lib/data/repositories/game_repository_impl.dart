@@ -28,16 +28,21 @@ class GameRepositoryImpl implements GameRepository {
   @override
   GameState applyMove(int index) {
     final state = _state;
-    if (state == null) throw InvalidMoveException('No game started');
+    if (state == null) {
+      throw InvalidMoveException('No game started');
+    }
     if (state.status is GameStatusOver) {
       throw InvalidMoveException('Game is over');
     }
-    if (index < 0 || index > 8) throw InvalidMoveException('Invalid cell index');
+    if (index < 0 || index > 8) {
+      throw InvalidMoveException('Invalid cell index');
+    }
     if (state.board[index] != null) {
       throw InvalidMoveException('Cell already filled');
     }
 
-    final newBoard = List<Player?>.from(state.board)..[index] = state.currentPlayer;
+    final newBoard = List<Player?>.from(state.board)
+      ..[index] = state.currentPlayer;
     final (result, winningLine) = _checkGameOver(newBoard);
     final newPlayer = state.currentPlayer.opposite;
 
