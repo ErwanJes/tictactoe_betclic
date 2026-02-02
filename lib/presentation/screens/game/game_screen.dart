@@ -32,6 +32,16 @@ class GameScreen extends ConsumerWidget {
     if (gameState == null) {
       return Scaffold(
         backgroundColor: AppColors.background,
+        appBar: AppBar(
+          backgroundColor: AppColors.background,
+          foregroundColor: AppColors.onBackground,
+          elevation: 0,
+          leading: IconButton(
+            icon: const Icon(Icons.arrow_back),
+            onPressed: () => context.pop(),
+            tooltip: 'Back to welcome',
+          ),
+        ),
         body: Center(
           child: Text(
             'No game started',
@@ -50,11 +60,24 @@ class GameScreen extends ConsumerWidget {
     final turnLabel = isOver
         ? 'GAME OVER'
         : isBotThinking
-            ? 'BOT IS THINKING…'
-            : (isHumanTurn ? 'YOUR TURN' : "BOT'S TURN");
+        ? 'BOT IS THINKING…'
+        : (isHumanTurn ? 'YOUR TURN' : "BOT'S TURN");
 
     return Scaffold(
       backgroundColor: AppColors.background,
+      appBar: AppBar(
+        backgroundColor: AppColors.background,
+        foregroundColor: AppColors.onBackground,
+        elevation: 0,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () {
+            ref.read(gameNotifierProvider.notifier).playAgain();
+            context.pop();
+          },
+          tooltip: 'Back to welcome',
+        ),
+      ),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: AppSpacing.lg),
@@ -64,9 +87,9 @@ class GameScreen extends ConsumerWidget {
               Text(
                 'TIC TAC TOE',
                 style: Theme.of(context).textTheme.headlineLarge?.copyWith(
-                      color: AppColors.onBackground,
-                      letterSpacing: 2,
-                    ),
+                  color: AppColors.onBackground,
+                  letterSpacing: 2,
+                ),
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: AppSpacing.sm),
@@ -90,10 +113,7 @@ class GameScreen extends ConsumerWidget {
                   ],
                 )
               else
-                Text(
-                  turnLabel,
-                  style: Theme.of(context).textTheme.titleMedium,
-                ),
+                Text(turnLabel, style: Theme.of(context).textTheme.titleMedium),
               const SizedBox(height: AppSpacing.sm),
               Text(
                 'Difficulty: ${DifficultyOption.forLevel(gameState.difficulty).label}',

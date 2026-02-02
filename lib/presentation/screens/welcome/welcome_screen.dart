@@ -22,7 +22,7 @@ class _WelcomeScreenState extends ConsumerState<WelcomeScreen> {
 
   void _onPlay() {
     ref.read(gameNotifierProvider.notifier).startGame(_difficulty);
-    context.goNamed(AppRoutes.game);
+    context.pushNamed(AppRoutes.game);
   }
 
   @override
@@ -40,9 +40,9 @@ class _WelcomeScreenState extends ConsumerState<WelcomeScreen> {
               Text(
                 'TIC TAC TOE',
                 style: Theme.of(context).textTheme.headlineLarge?.copyWith(
-                      color: AppColors.onBackground,
-                      letterSpacing: 2,
-                    ),
+                  color: AppColors.onBackground,
+                  letterSpacing: 2,
+                ),
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: AppSpacing.sm),
@@ -55,8 +55,8 @@ class _WelcomeScreenState extends ConsumerState<WelcomeScreen> {
               Text(
                 'Difficulty',
                 style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                      color: AppColors.onBackgroundSecondary,
-                    ),
+                  color: AppColors.onBackgroundSecondary,
+                ),
               ),
               const SizedBox(height: AppSpacing.sm),
               Row(
