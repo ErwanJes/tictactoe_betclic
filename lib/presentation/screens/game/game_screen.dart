@@ -22,7 +22,10 @@ class GameScreen extends ConsumerWidget {
       }
     });
 
-    final gameState = ref.watch(gameNotifierProvider).gameState;
+    final notifierState = ref.watch(gameNotifierProvider);
+    final gameState = notifierState.gameState;
+    final isBotThinking = notifierState.isBotThinking;
+
     if (gameState == null) {
       return Scaffold(
         body: Center(
@@ -36,7 +39,8 @@ class GameScreen extends ConsumerWidget {
 
     final notifier = ref.read(gameNotifierProvider.notifier);
     final isOver = gameState.status is GameStatusOver;
-    final isHumanTurn = gameState.currentPlayer == Player.x && !isOver;
+    final isHumanTurn =
+        gameState.currentPlayer == Player.x && !isOver && !isBotThinking;
     final winningLine = gameState.winningLine ?? <int>[];
 
     return Scaffold(
@@ -47,12 +51,32 @@ class GameScreen extends ConsumerWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text(
-                isOver
-                    ? 'Game over'
-                    : (isHumanTurn ? "Your turn (X)" : "Bot's turn (O)"),
-                style: Theme.of(context).textTheme.titleMedium,
-              ),
+              if (isBotThinking)
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    SizedBox(
+                      width: 20,
+                      height: 20,
+                      child: CircularProgressIndicator(
+                        strokeWidth: 2,
+                        color: Theme.of(context).colorScheme.primary,
+                      ),
+                    ),
+                    const SizedBox(width: AppSpacing.sm),
+                    Text(
+                      'Bot is thinking…',
+                      style: Theme.of(context).textTheme.titleMedium,
+                    ),
+                  ],
+                )
+              else
+                Text(
+                  isOver
+                      ? 'Game over'
+                      : (isHumanTurn ? "Your turn (X)" : "Bot's turn (O)"),
+                  style: Theme.of(context).textTheme.titleMedium,
+                ),
               const SizedBox(height: AppSpacing.sm),
               Text(
                 'Difficulty: ${DifficultyOption.forLevel(gameState.difficulty).label}',

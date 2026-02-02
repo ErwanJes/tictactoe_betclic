@@ -7,9 +7,10 @@ import '../../injection.dart';
 
 /// State exposed to the UI: current game or null (before starting or after reset).
 class GameNotifierState {
-  const GameNotifierState({this.gameState});
+  const GameNotifierState({this.gameState, this.isBotThinking = false});
 
   final GameState? gameState;
+  final bool isBotThinking;
 
   bool get hasGame => gameState != null;
 }
@@ -39,7 +40,8 @@ class GameNotifier extends Notifier<GameNotifierState> {
       state = GameNotifierState(gameState: newGameState);
 
       // If game not over and it's O's turn, bot plays.
-      if (newGameState.status is GameStatusPlaying && newGameState.currentPlayer == Player.o) {
+      if (newGameState.status is GameStatusPlaying &&
+          newGameState.currentPlayer == Player.o) {
         _scheduleBotMove(newGameState.difficulty, newGameState.board);
       }
     } catch (_) {
@@ -47,12 +49,15 @@ class GameNotifier extends Notifier<GameNotifierState> {
     }
   }
 
+  static const _botThinkingDelay = Duration(milliseconds: 400);
+
   void _scheduleBotMove(int difficulty, List<Player?> board) {
-    Future.microtask(() {
+    state = GameNotifierState(gameState: state.gameState, isBotThinking: true);
+    Future.delayed(_botThinkingDelay, () {
       final getBotMove = ref.read(getBotMoveUseCaseProvider(difficulty));
       final botIndex = getBotMove(board, Player.o);
       final newGameState = _playTurn(botIndex);
-      state = GameNotifierState(gameState: newGameState);
+      state = GameNotifierState(gameState: newGameState, isBotThinking: false);
     });
   }
 
@@ -61,4 +66,6 @@ class GameNotifier extends Notifier<GameNotifierState> {
   }
 }
 
-final gameNotifierProvider = NotifierProvider<GameNotifier, GameNotifierState>(GameNotifier.new);
+final gameNotifierProvider = NotifierProvider<GameNotifier, GameNotifierState>(
+  GameNotifier.new,
+);
