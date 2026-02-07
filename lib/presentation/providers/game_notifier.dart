@@ -50,7 +50,7 @@ class GameNotifier extends Notifier<GameNotifierState> {
         _scheduleBotMove(newGameState.difficulty, newGameState.board);
       }
     } catch (_) {
-      // Invalid move: ignore or could show snackbar via a separate channel
+      // Invalid move: ignore it
     }
   }
 

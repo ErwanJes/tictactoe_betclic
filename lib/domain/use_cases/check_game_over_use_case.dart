@@ -15,7 +15,7 @@ class CheckGameOverUseCase {
           : GameResult.botWin;
       return (result, win);
     }
-    final isFull = board.every((c) => c != null);
+    final isFull = board.every((cell) => cell != null);
     if (isFull) {
       return (GameResult.draw, null);
     }

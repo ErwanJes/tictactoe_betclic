@@ -24,7 +24,9 @@ class GameScreen extends ConsumerWidget {
     ref.listen<GameNotifierState>(gameNotifierProvider, (prev, next) {
       final status = next.gameState?.status;
       if (status is GameStatusOver) {
+        // Play a haptic feedback when the game is over.
         HapticFeedback.lightImpact();
+
         final gameState = next.gameState!;
         if (!context.mounted) {
           return;
